@@ -13,26 +13,36 @@ if (!isset($_SESSION['favorites'])) {
 // Gérer les ajouts/suppressions de recettes favorites
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['recette_id'])) {
     $recette_id = intval($_POST['recette_id']);
-    if ($user_id) {
-        if ($_POST['action'] === 'add') {
+
+    if ($_POST['action'] === 'add') {
+        // Ajouter aux favoris dans la session
+        $_SESSION['favorites'][$recette_id] = true;
+
+        // Ajouter en base de données si l'utilisateur est connecté
+        if ($user_id) {
             $stmt = $mysqli->prepare("INSERT IGNORE INTO recettes_favorites (utilisateur_id, recette_id) VALUES (?, ?)");
             $stmt->bind_param("ii", $user_id, $recette_id);
             $stmt->execute();
             $stmt->close();
-        } elseif ($_POST['action'] === 'remove') {
+        }
+    } elseif ($_POST['action'] === 'remove') {
+        // Retirer des favoris dans la session
+        unset($_SESSION['favorites'][$recette_id]);
+
+        // Supprimer de la base de données si l'utilisateur est connecté
+        if ($user_id) {
             $stmt = $mysqli->prepare("DELETE FROM recettes_favorites WHERE utilisateur_id = ? AND recette_id = ?");
             $stmt->bind_param("ii", $user_id, $recette_id);
             $stmt->execute();
             $stmt->close();
         }
-    } else {
-        if ($_POST['action'] === 'add') {
-            $_SESSION['favorites'][$recette_id] = true;
-        } elseif ($_POST['action'] === 'remove') {
-            unset($_SESSION['favorites'][$recette_id]);
-        }
     }
+
+    // Redirection pour éviter la resoumission du formulaire après actualisation
+    header("Location: " . $_SERVER['PHP_SELF'] . "?" . http_build_query($_GET));
+    exit();
 }
+
 
 function afficher_recettes_favorites($mysqli, $user_id) {
     if ($user_id) {
@@ -118,7 +128,10 @@ function afficher_recettes($mysqli, $aliment, $user_id = null) {
         $est_favorite = $user_id
             ? $mysqli->query("SELECT 1 FROM recettes_favorites WHERE utilisateur_id = $user_id AND recette_id = $recette_id")->num_rows > 0
             : isset($_SESSION['favorites'][$recette_id]);
-        
+
+        // Définir le cœur à afficher
+        $coeur = $est_favorite ? "❤️" : "🤍";
+
         echo "<div class='recette'>";
         echo "<h2>" . htmlspecialchars($row['titre']) . "</h2>";
 
@@ -136,31 +149,9 @@ function afficher_recettes($mysqli, $aliment, $user_id = null) {
             $unite = !empty($ingredient['unite']) ? $ingredient['unite'] : '';
             $aliment = htmlspecialchars($ingredient['aliment']);
 
-            // Convertir unite et aliment en minuscules pour comparaison
-            $unite_lower = mb_strtolower($unite);
-            $aliment_lower = mb_strtolower($aliment);
-
-            // Vérification des 2 premières lettres pour éviter la redondance
-            if (mb_substr($unite_lower, 0, 2) === mb_substr($aliment_lower, 0, 2)) {
-                // Si les deux premières lettres sont identiques, on n'affiche que la quantité et l'unité
-                $texte = "$quantite $unite";
-            } else {
-                // Sinon, on ajoute l'article et l'aliment
-                if (!empty($unite)) {
-                    $premiere_lettre = mb_strtolower(mb_substr($aliment, 0, 1));
-                    $article = in_array($premiere_lettre, ['a', 'e', 'i', 'o', 'u', 'y']) ? "d'" : "de";
-                } else {
-                    $article = ''; // Pas d'article si pas d'unité
-                }
-
-                // Construire le texte final avec la quantité, l'unité, l'article et l'aliment
-                $texte = "$quantite $unite $article $aliment";
-            }
-
             // Affichage formaté de l'ingrédient
-            echo "<li>" . trim($texte) . "</li>";
+            echo "<li>$quantite $unite $aliment</li>";
         }
-
         echo "</ul>";
 
         // Afficher la préparation
@@ -172,16 +163,12 @@ function afficher_recettes($mysqli, $aliment, $user_id = null) {
         } else {
             echo "<div class='photo'><img src='Photos/Image-Not-Found.jpg' alt='Photo non disponible' width='100'></div>";
         }
-        if(!empty($row['chemin_photo'])){
-            echo "<p>Photo non disponible vide ça mere.</p>";
-            echo $row['chemin_photo'];
-        }
 
-        // Bouton pour ajouter ou retirer des favoris
+        // Bouton pour ajouter ou retirer des favoris avec des cœurs
         echo "<form method='POST' style='display: inline-block;'>
             <input type='hidden' name='recette_id' value='$recette_id'>
-            <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add') . "'>
-                " . ($est_favorite ? 'Retirer des favoris' : 'Ajouter aux favoris') . "
+            <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add') . "' style='border: none; background: none; font-size: 1.5em; cursor: pointer;'>
+                $coeur
             </button>
         </form>";
 
@@ -189,6 +176,7 @@ function afficher_recettes($mysqli, $aliment, $user_id = null) {
     }
     echo "</div>";
 }
+
 
 // Structure HTML et affichage
 echo "<!DOCTYPE html>
@@ -208,9 +196,13 @@ echo "<!DOCTYPE html>
 <body>
     <nav>
         // <a href='index.php'>Accueil</a>
-        <a href='mes_recettes_favorites.php'>Mes recettes préférées</a>
+        <a href='mes_recettes_favorites.php'target='_blank'>Mes recettes préférées</a>
     </nav>
     <h1>Recettes pour l'aliment : " . htmlspecialchars($aliment) . "</h1>";
+
+// Afficher les recettes selectionnées
+echo "<h2>Mes recettes préférées :</h2>";
+afficher_recettes_favorites($mysqli, $user_id);
 
 // Afficher le chemin de navigation
 afficher_chemin($mysqli, $aliment);
