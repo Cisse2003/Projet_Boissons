@@ -4,56 +4,72 @@ session_start();
 // Connexion à la base de données
 $mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') or die("Erreur de connexion à MySQL");
 
-// Vérifiez si l'utilisateur est connecté
-$user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : null;
+// Vérifiez si des favoris sont définis dans la session
+if (!isset($_SESSION['favorites']) || empty($_SESSION['favorites'])) {
+    echo "<!DOCTYPE html>
+    <html lang='fr'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Mes recettes préférées</title>
+        <link rel='stylesheet' type='text/css' href='styles_favories.css'>
+    </head>
+    <body>
+        <h1>Mes recettes préférées</h1>
+        <p>Vous n'avez pas encore de recettes préférées.</p>
+    </body>
+    </html>";
+    exit();
+}
 
-function afficher_recettes_favorites($mysqli, $user_id) {
-    if ($user_id) {
-        // Récupérer les recettes favorites depuis la base de données
-        $query = "
-            SELECT r.id, r.titre, p.chemin_photo
-            FROM recettes r
-            JOIN recettes_favorites rf ON r.id = rf.recette_id
-            LEFT JOIN photos p ON r.id = p.recette_id
-            WHERE rf.utilisateur_id = ?
-        ";
-        $stmt = $mysqli->prepare($query);
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-    } else {
-        // Si l'utilisateur n'est pas connecté, utiliser les favoris en session
-        if (empty($_SESSION['favorites'])) {
-            echo "<p>Vous n'avez pas encore de recettes préférées.</p>";
-            return;
-        }
-        $recette_ids = implode(',', array_keys($_SESSION['favorites']));
-        $query = "
-            SELECT id, titre, chemin_photo
-            FROM recettes
-            LEFT JOIN photos ON recettes.id = photos.recette_id
-            WHERE id IN ($recette_ids)
-        ";
-        $result = $mysqli->query($query);
-    }
+// Récupérer les IDs des recettes favorites depuis la session
+$favorite_ids = array_keys($_SESSION['favorites']);
 
-    if ($result->num_rows > 0) {
-        echo "<div class='recettes'>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<div class='recette'>";
-            echo "<h2>" . htmlspecialchars($row['titre']) . "</h2>";
-            if (!empty($row['chemin_photo']) && file_exists($row['chemin_photo'])) {
-                echo "<img src='" . htmlspecialchars($row['chemin_photo']) . "' alt='Photo de " . htmlspecialchars($row['titre']) . "'>";
-            } else {
-                echo "<img src='Photos/Image-Not-Found.jpg' alt='Photo non disponible'>";
-            }
-            echo "</div>";
-        }
-        echo "</div>";
-    } else {
-        echo "<p>Vous n'avez pas encore de recettes préférées.</p>";
+// Construire une requête pour récupérer les informations des recettes favorites
+$ids_placeholders = implode(',', array_fill(0, count($favorite_ids), '?'));
+$stmt = $mysqli->prepare("SELECT r.id, r.titre, r.preparation, p.chemin_photo 
+                          FROM recettes r
+                          LEFT JOIN photos p ON r.id = p.recette_id
+                          WHERE r.id IN ($ids_placeholders)");
+
+// Associer les IDs des recettes favorites aux paramètres de la requête
+$stmt->bind_param(str_repeat('i', count($favorite_ids)), ...$favorite_ids);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Vérifiez s'il y a des recettes favorites
+if ($result->num_rows === 0) {
+    echo "<!DOCTYPE html>
+    <html lang='fr'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Mes recettes préférées</title>
+        <link rel='stylesheet' type='text/css' href='styles_favories.css'>
+    </head>
+    <body>
+        <h1>Mes recettes préférées</h1>
+        <p>Vous n'avez pas encore de recettes préférées.</p>
+    </body>
+    </html>";
+    exit();
+}
+
+// Fonction pour afficher les recettes favorites
+function afficher_recettes_favorites($result) {
+    echo "<div class='recettes-list'>";
+    while ($row = $result->fetch_assoc()) {
+        $titre = htmlspecialchars($row['titre']);
+        $photo = !empty($row['chemin_photo']) && file_exists($row['chemin_photo']) ? $row['chemin_photo'] : "Photos/Image-Not-Found.jpg";
+        $preparation = htmlspecialchars($row['preparation']);
+
+        echo "<div class='recette-card'>
+                <img src='$photo' alt='$titre' class='recette-img'>
+                <div class='recette-details'>
+                    <h3>$titre</h3>
+                    <p>$preparation</p>
+                </div>
+              </div>";
     }
+    echo "</div>";
 }
 
 // Affichage HTML
@@ -62,23 +78,19 @@ echo "<!DOCTYPE html>
 <head>
     <meta charset='UTF-8'>
     <title>Mes recettes préférées</title>
-    <style>
-    body { font-family: Arial, sans-serif; }
-    .recettes { display: flex; flex-wrap: wrap; gap: 20px; }
-    .recette { border: 1px solid #ddd; padding: 10px; width: 300px; text-align: center; }
-    .recette img { max-width: 100%; height: auto; }
-</style>
-
+    <link rel='stylesheet' type='text/css' href='styles/styles_favories.css'>
 </head>
 <body>
     <h1>Mes recettes préférées</h1>";
 
 // Afficher les recettes favorites
-afficher_recettes_favorites($mysqli, $user_id);
-
-// Fermer la connexion
-$mysqli->close();
+afficher_recettes_favorites($result);
 
 echo "</body>
 </html>";
+
+// Fermer la connexion à la base de données
+$stmt->close();
+$mysqli->close();
 ?>
+

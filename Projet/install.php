@@ -53,10 +53,10 @@ $Sql = "
     );
 
     CREATE TABLE utilisateurs (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(50) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
     CREATE TABLE recettes_favorites (
@@ -146,8 +146,7 @@ foreach ($Recettes as $recette) {
     $ingredients = explode('|', $recette['ingredients']); // Liste des quantités, unités et descriptions
     $index = $recette['index']; 
     if (count($ingredients) !== count($index)) {
-
-        echo "Il y'a différence entre ingrédients et index pour la recette : {$recette['titre']}<br>";
+        echo "Mismatch entre ingrédients et index pour la recette : {$recette['titre']}<br>";
     } else {
         foreach ($index as $i => $nom_aliment) { // Parcourir les aliments par index
             $ingredient = trim($ingredients[$i]); // Ingrédient correspondant dans `ingredients`
@@ -192,6 +191,7 @@ foreach ($Recettes as $recette) {
     $stmt->bind_param("is", $recette_id, $photo_chemin);
     $stmt->execute();
     $stmt->close();
+    
 }
 
 echo "Base de données, tables et données initialisées avec succès.";
@@ -199,3 +199,4 @@ echo "Base de données, tables et données initialisées avec succès.";
 // Fermeture de la connexion
 $mysqli->close();
 ?>
+
