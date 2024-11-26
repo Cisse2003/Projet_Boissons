@@ -70,7 +70,13 @@ function afficher_recettes($mysqli, $aliment) {
         $coeur = $est_favorite ? "❤️" : "🤍";
 
         echo "<div class='recette'>";
-        echo "<h2>" . htmlspecialchars($row['titre']) . "</h2>";
+       
+       
+         echo "<h2>" . htmlspecialchars($row['titre']) . "</h2>";
+echo "<form method='POST' style='margin: 0;'>
+        <input type='hidden' name='recette_id' value='$recette_id'>
+        <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add')."'>$coeur</button>
+      </form>";
         echo "<p><strong>Ingrédients :</strong></p><ul>";
         $ingredients_query = "
             SELECT i.quantite, i.unite, a.nom AS aliment
@@ -95,9 +101,10 @@ function afficher_recettes($mysqli, $aliment) {
             ? "<img src='" . htmlspecialchars($row['chemin_photo']) . "' alt='Photo de " . htmlspecialchars($row['titre']) . "'>"
             : "<img src='Photos/Image-Not-Found.jpg' alt='Photo non disponible'>";
         echo "</div>";
-        echo "<form method='POST'><input type='hidden' name='recette_id' value='$recette_id'>
-            <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add') . "'>$coeur</button>
-        </form>";
+        
+       // echo "<form method='POST'><input type='hidden' name='recette_id' value='$recette_id'>
+        //    <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add') . "'>$coeur</button>
+      //  </form>";
         echo "</div>";
     }
     echo "</div>";

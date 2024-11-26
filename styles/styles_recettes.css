@@ -62,15 +62,19 @@ h1, h2, h3 {
 }
 
 .recette {
-    border: 1px solid black;
-    padding: 10px;
-    width: 200px;
-    text-align: center;
+    position: relative; /* Pour que les éléments enfants puissent se positionner relativement à la recette */
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .recette h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
 }
 
 .recette ul {
@@ -107,6 +111,16 @@ nav {
     margin-left: auto;
 }
 
+.recette h2 button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+.recette h2 button:hover {
+    transform: scale(1.1);
+}
+
 .btn-favorites {
     text-decoration: none;
     padding: 10px 15px;
@@ -120,5 +134,24 @@ nav {
 
 .btn-favorites:hover {
     background-color: #0056b3;
+}
+
+.favorite-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.btn-heart {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: red;
+    transition: transform 0.2s ease;
+}
+
+.btn-heart:hover {
+    transform: scale(1.2); /* Effet visuel au survol */
 }
 
