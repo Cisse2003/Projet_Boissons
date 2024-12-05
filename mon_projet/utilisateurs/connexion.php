@@ -4,12 +4,13 @@ session_start();
 // Connexion à MySQL
 $mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') or die("Erreur de connexion à MySQL");
 
-// Vérification du mot de passe sans cryptage
-function verifierMotDePasseSansCryptage($motDePasseSaisi, $motDePasseStocke) {
-    if ($motDePasseSaisi === $motDePasseStocke) {
-        return true; // Les mots de passe sont identiques
+// Vérification du mot de passe crypter
+function verifierMotDePasseCrypter($motDePasseSaisi, $motDePasseStocke) {
+    if(password_verify($motDePasseSaisi, $motDePasseStocke)){
+    	return true;
+    }else{
+    	return false;
     }
-    return false; // Les mots de passe ne correspondent pas
 }
 
 // Vérification si le formulaire a été soumis
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $result->fetch_assoc();
 
         // Utilisation de la fonction pour vérifier le mot de passe sans cryptage
-        if (verifierMotDePasseSansCryptage($_POST['password'], $row['password_hash'])) {
+        if (verifierMotDePasseCrypter($_POST['password'], $row['password_hash'])) {
             // Stocker le nom d'utilisateur dans la session
             $_SESSION['username'] = $row['username'];
 
@@ -91,4 +92,3 @@ $mysqli->close();
 </div>
 </body>
 </html>
-

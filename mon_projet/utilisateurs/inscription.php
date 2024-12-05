@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Hacher le mot de passe
-    $hashedPassword = $password;
+    $hashedPassword =  password_hash($password, PASSWORD_BCRYPT);
 
     // Insérer l'utilisateur dans la base de données
     $sql = "INSERT INTO utilisateurs 
@@ -195,4 +195,3 @@ $mysqli->close();
 </div>
 </body>
 </html>
-
