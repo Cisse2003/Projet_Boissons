@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $result->fetch_assoc();
 
         // Utilisation de la fonction pour vérifier le mot de passe sans cryptage
-        if (verifierMotDePasseSansCryptage($_POST['password'], $row['password'])) {
+        if (verifierMotDePasseSansCryptage($_POST['password'], $row['password_hash'])) {
             // Stocker le nom d'utilisateur dans la session
             $_SESSION['username'] = $row['username'];
 
