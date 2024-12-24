@@ -5,7 +5,6 @@ function query($link, $requete) {
     return $resultat;
 }
 
-// Connexion à MySQL
 $mysqli = mysqli_connect('127.0.0.1', 'root', '') or die("Erreur de connexion à MySQL");
 $base = "ProjetRecettes";
 
@@ -96,7 +95,7 @@ foreach ($Hierarchie as $aliment => $details) {
     $stmt->bind_param("s", $aliment);
     $stmt->execute();
     $aliment_id = $stmt->insert_id;
-    $aliment_ids[$aliment] = $aliment_id;  // Stocke l'ID de chaque aliment pour les relations hiérarchiques
+    $aliment_ids[$aliment] = $aliment_id;  
     $stmt->close();
 }
 
@@ -131,14 +130,6 @@ foreach ($Hierarchie as $aliment => $details) {
     }
 }
 
-// Fonction pour normaliser les noms d'aliments
-// function normaliser_nom($nom) {
-//     $nom = strtolower(trim($nom)); // Mettre en minuscule et enlever les espaces
-//     $nom = preg_replace('/\b(de|d\'|du|des|la|le|les|l\')\b/', '', $nom); // Enlever les articles
-//     $nom = trim($nom);
-//     return $nom;
-// }
-
 // Insérer les recettes et leurs ingrédients
 foreach ($Recettes as $recette) {
     // Insertion de la recette
@@ -158,7 +149,7 @@ foreach ($Recettes as $recette) {
         echo "Mismatch entre ingrédients et index pour la recette : {$recette['titre']}<br>";
     } else {
         foreach ($index as $i => $nom_aliment) { // Parcourir les aliments par index
-            $ingredient = trim($ingredients[$i]); // Ingrédient correspondant dans `ingredients`
+            $ingredient = trim($ingredients[$i]);
     
             // Diviser l'ingrédient pour extraire quantité, unité et nom
             $parts = explode(' ', $ingredient, 3); // Diviser en 3 parties : quantité, unité, reste
@@ -194,7 +185,7 @@ foreach ($Recettes as $recette) {
     // Insertion de la photo associée (si disponible)
     $photo_chemin = "Photos/" . str_replace(' ', '_', $titre) . ".jpg";
     if (!file_exists($photo_chemin)) {
-        $photo_chemin = "Photos/Image-Not-Found.jpg"; // Chemin vers une image par défaut
+        $photo_chemin = "Photos/photo_non_trouver.jpg";
     }
     $stmt = $mysqli->prepare("INSERT INTO photos (recette_id, chemin_photo) VALUES (?, ?)");
     $stmt->bind_param("is", $recette_id, $photo_chemin);
@@ -209,7 +200,6 @@ $row = $result->fetch_row();
 echo "Base de données actuelle : " . $row[0];
 
 
-// Fermeture de la connexion
 $mysqli->close();
 ?>
 
