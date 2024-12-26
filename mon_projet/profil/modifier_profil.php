@@ -7,29 +7,40 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes')
-or die("Erreur de connexion à MySQL");
+$mysqli = new mysqli('127.0.0.1', 'root', '', 'ProjetRecettes');
+if ($mysqli->connect_error) {
+    die("Erreur de connexion : " . $mysqli->connect_error);
+}
 
-// Récupère l'utilisateur connecté
 $username = $_SESSION['username'];
-$query = "SELECT * FROM utilisateurs WHERE username = '$username'";
-$result = $mysqli->query($query);
+$stmt = $mysqli->prepare("SELECT * FROM utilisateurs WHERE username = ?");
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupère les nouvelles informations du profil
-    $nom_complet = $_POST['nom_complet'];
-    $email = $_POST['email'];
+    $nom = htmlspecialchars(trim($_POST['nom']));
+    $prenom = htmlspecialchars(trim($_POST['prenom']));
+    $sexe = htmlspecialchars(trim($_POST['sexe']));
+    $date_naissance = $_POST['date_naissance'] ?: NULL;
+    $adresse = htmlspecialchars(trim($_POST['adresse']));
+    $code_postal = htmlspecialchars(trim($_POST['code_postal']));
+    $ville = htmlspecialchars(trim($_POST['ville']));
+    $telephone = htmlspecialchars(trim($_POST['telephone']));
+    $email = htmlspecialchars(trim($_POST['email']));
 
-    // Met à jour les informations dans la base de données
-    $update_query = "UPDATE utilisateurs SET nom_complet = '$nom_complet', email = '$email' WHERE username = '$username'";
-    $mysqli->query($update_query);
+    $update_stmt = $mysqli->prepare(
+        "UPDATE utilisateurs SET nom = ?, prenom = ?, sexe = ?, date_naissance = ?, adresse = ?, code_postal = ?, ville = ?, telephone = ?, email = ? WHERE username = ?"
+    );
+    $update_stmt->bind_param("ssssssssss", $nom, $prenom, $sexe, $date_naissance, $adresse, $code_postal, $ville, $telephone, $email, $username);
+    $update_stmt->execute();
 
-    // Redirige vers la page de profil après la mise à jour
     header("Location: profil.php");
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -41,101 +52,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fffaf0;
-            color: #333;
-        }
-        header {
-            background-color: #ff6f00;
-            padding: 15px 20px;
-            text-align: center;
-        }
-        header .btn-home {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            background-color: #ff8c00;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        header .btn-home:hover {
-            background-color: #e65c00;
-        }
-        h1 {
-            text-align: center;
-            color: #ff6f00;
-            margin-top: 20px;
         }
         form {
             max-width: 600px;
             margin: 30px auto;
-            background: #fff;
-            border: 1px solid #ffd699;
+            padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            padding: 20px 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
         }
-        form label {
+        label {
             display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #ff6f00;
+            margin: 10px 0 5px;
         }
-        form input {
+        input, select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ffcc99;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
             border-radius: 5px;
         }
-        form input:focus {
-            border-color: #ff8c00;
-            outline: none;
-        }
-        form button {
-            background-color: #ff6f00;
+        button {
+            background-color: #28a745;
             color: white;
             border: none;
             padding: 10px 15px;
-            font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
-        form button:hover {
-            background-color: #e65c00;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #ff6f00;
-            color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-<header>
-    <a href="profil.php" class="btn-home">Retour au Profil</a>
-</header>
-
 <h1>Modifier votre profil</h1>
-
 <form method="POST">
-    <label for="nom_complet">Nom complet :</label>
-    <input type="text" name="nom_complet" id="nom_complet" value="<?php echo htmlspecialchars($user['nom_complet']); ?>" required>
+    <label for="nom">Nom :</label>
+    <input type="text" name="nom" id="nom" value="<?php echo htmlspecialchars($user['nom']); ?>" required>
+
+    <label for="prenom">Prénom :</label>
+    <input type="text" name="prenom" id="prenom" value="<?php echo htmlspecialchars($user['prenom']); ?>" required>
+
+    <label for="sexe">Sexe :</label>
+    <select name="sexe" id="sexe">
+        <option value="M" <?php echo ($user['sexe'] === 'M') ? 'selected' : ''; ?>>Masculin</option>
+        <option value="F" <?php echo ($user['sexe'] === 'F') ? 'selected' : ''; ?>>Féminin</option>
+        <option value="Autre" <?php echo ($user['sexe'] === 'Autre') ? 'selected' : ''; ?>>Autre</option>
+    </select>
+
+    <label for="date_naissance">Date de naissance :</label>
+    <input type="date" name="date_naissance" id="date_naissance" value="<?php echo htmlspecialchars($user['date_naissance']); ?>">
+
+    <label for="adresse">Adresse :</label>
+    <input type="text" name="adresse" id="adresse" value="<?php echo htmlspecialchars($user['adresse']); ?>">
+
+    <label for="code_postal">Code postal :</label>
+    <input type="text" name="code_postal" id="code_postal" value="<?php echo htmlspecialchars($user['code_postal']); ?>">
+
+    <label for="ville">Ville :</label>
+    <input type="text" name="ville" id="ville" value="<?php echo htmlspecialchars($user['ville']); ?>">
+
+    <label for="telephone">Téléphone :</label>
+    <input type="text" name="telephone" id="telephone" value="<?php echo htmlspecialchars($user['telephone']); ?>">
 
     <label for="email">Email :</label>
     <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
 
     <button type="submit">Mettre à jour</button>
 </form>
-
-<footer>
-    <p>&copy; 2024 Projet Recettes</p>
-</footer>
 </body>
 </html>

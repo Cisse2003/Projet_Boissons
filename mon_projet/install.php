@@ -1,5 +1,6 @@
 <?php
 // Fonction pour exécuter les requêtes avec gestion des erreurs
+global $Recettes, $Hierarchie;
 function query($link, $requete) {
     $resultat = mysqli_query($link, $requete) or die("$requete : " . mysqli_error($link));
     return $resultat;
@@ -50,8 +51,8 @@ $Sql = "
         chemin_photo VARCHAR(255),
         FOREIGN KEY (recette_id) REFERENCES recettes(id)
     );
-
-    CREATE TABLE utilisateurs (
+    
+CREATE TABLE utilisateurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
@@ -64,6 +65,7 @@ $Sql = "
     code_postal VARCHAR(10) DEFAULT NULL,
     ville VARCHAR(100) DEFAULT NULL,
     telephone VARCHAR(20) DEFAULT NULL,
+    profile_picture VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46b96058-0984-45ed-a99e-02db96a438ff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/mon_projet/uploads/676d307a1d511.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/uploads/676d31b5cfb55.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/authentification/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/authentification/inscription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/install.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/install.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,21 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "doumbouyaTest",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/SCAN/tp5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;doumbouyaTest&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/SCAN/tp5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\laragon\www\Projet_Boissons\mon_projet\profil" />
@@ -87,10 +93,14 @@
       <workItem from="1734707774534" duration="1630000" />
       <workItem from="1734762564684" duration="609000" />
       <workItem from="1735133831301" duration="4077000" />
+      <workItem from="1735188803437" duration="427000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
