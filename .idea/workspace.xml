@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46b96058-0984-45ed-a99e-02db96a438ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Projet_Boissons.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/rSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/profil/deconnexion.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/profil/profil.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/uploads/676cf42fb3130.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/uploads/676d307a1d511.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/uploads/676d31b5cfb55.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/uploads/676d344965989.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/authentification/connexion.html" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/authentification/connexion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/authentification/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/authentification/connexion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/authentification/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/authentification/inscription.php" afterDir="false" />
+    <list default="true" id="46b96058-0984-45ed-a99e-02db96a438ff" name="Changes" comment="fusion entre les 2 branches">
       <change beforePath="$PROJECT_DIR$/mon_projet/authentification/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/authentification/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +58,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/SCAN/tp5",
     "node.js.detected.package.eslint": "true",
@@ -120,8 +102,17 @@
       <workItem from="1734762564684" duration="609000" />
       <workItem from="1735133831301" duration="4077000" />
       <workItem from="1735188803437" duration="427000" />
-      <workItem from="1735242778662" duration="313000" />
+      <workItem from="1735242778662" duration="707000" />
     </task>
+    <task id="LOCAL-00001" summary="fusion entre les 2 branches">
+      <option name="closed" value="true" />
+      <created>1735243342428</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1735243342428</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,5 +120,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="fusion entre les 2 branches" />
+    <option name="LAST_COMMIT_MESSAGE" value="fusion entre les 2 branches" />
   </component>
 </project>
