@@ -5,26 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46b96058-0984-45ed-a99e-02db96a438ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/mon_projet/Photos/photo_non_trouver.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/connexion.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/connexion.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/inscription.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/inscription.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/chercher_des_suggestions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/details_ingredients.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/resultats_recherche.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/scripts/recherche.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/styles/affichage_recettes.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/styles/pas_de_recettes_favories.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/styles/styles_mes_favories.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/afficher_recettes.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/afficher_recettes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/install.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/install.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/mes_recettes_favorites.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/mes_recettes_favorites.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/profil/profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/profil/profil.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
