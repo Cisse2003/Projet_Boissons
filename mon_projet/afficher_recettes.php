@@ -155,7 +155,7 @@ echo "<h2 class='titre-recette'>";
     <button type="submit" class="btn-research" onclick="performSearch()">Recherche</button>
 </form>
 
-            <a href="utilisateurs/connexion.php" class="btn-connexion">Connexion</a>
+            <a href="authentification/connexion.php" class="btn-connexion">Connexion</a>
         </nav>
     </header>
  

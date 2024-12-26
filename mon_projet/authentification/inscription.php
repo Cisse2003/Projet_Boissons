@@ -101,7 +101,7 @@ $mysqli->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>TDC - Inscription</title>
 </head>
@@ -170,7 +170,7 @@ $mysqli->close();
 
                 <div>
                     <label for="postal_code">Code Postal</label>
-                    <input type="text" name="postal_code" placeholder="53900" value="<?php if (isset($postal_code)) echo $postal_code; ?>">
+                    <input type="text" name="postal_code" placeholder="54000" value="<?php if (isset($postal_code)) echo $postal_code; ?>">
                     <?php if (isset($badformatCP) && $badformatCP) echo "<span class='errone'>code postal invalide : 5 chiffres</span>"; ?>
                 </div>
 

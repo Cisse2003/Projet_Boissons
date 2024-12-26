@@ -59,7 +59,7 @@ function afficher_recettes_favorites($result) {
                 <div class='recette-details'>
                     <h3>$titre</h3> <!-- Affiche le titre de la recette -->
                     <p>" . substr($preparation, 0, 100) . "...</p> <!-- Affiche un extrait de la préparation -->
-                    <a href='details_ingredients.php?id=" . $row['id'] . "' class='btn-secondary'>Ingrédients</a> <!-- Lien vers la recette -->
+                    <a href='details_ingredients.php?id=" . $row['id'] . "' class='btn-secondary' target='_blank'>Ingrédients</a> <!-- Lien vers la recette -->
                 </div>
               </div>";
     }

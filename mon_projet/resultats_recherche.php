@@ -57,7 +57,7 @@ if ($nom_recette) {
     <header>
         <nav class="alignement_des_btns">
             <a href="mes_recettes_favorites.php" class="btn-favorites">Recettes ❤️</a>
-            <a href="utilisateurs/connexion.php" class="btn-connexion">Connexion</a>
+            <a href="authentification/connexion.php" class="btn-connexion">Connexion</a>
         </nav>
     </header>
     

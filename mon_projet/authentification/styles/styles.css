@@ -94,7 +94,7 @@ input {
 }
 
 .container button:hover {
-    background-color: #45a049;
+    background-color: #FF4F3A;
 }
 
 .container p {
@@ -159,4 +159,12 @@ h3 {
     flex-direction: row;
     align-items: center;
     margin-bottom: 0;
+}
+
+h2 {
+    color: #FF6F61;
+}
+
+h2:hover {
+    color: #FF4F3A;
 }
