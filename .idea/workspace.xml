@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46b96058-0984-45ed-a99e-02db96a438ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/mon_projet/profil/deconnexion.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mon_projet/profil/profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/profil/profil.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +83,7 @@
       <workItem from="1734703437167" duration="1630000" />
       <workItem from="1734707774534" duration="1630000" />
       <workItem from="1734762564684" duration="609000" />
-      <workItem from="1735133831301" duration="2818000" />
+      <workItem from="1735133831301" duration="3595000" />
     </task>
     <servers />
   </component>
