@@ -29,20 +29,97 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: profil.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier Profil</title>
-    <link rel="stylesheet" type="text/css" href="styles/profil.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fffaf0;
+            color: #333;
+        }
+        header {
+            background-color: #ff6f00;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        header .btn-home {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #ff8c00;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        header .btn-home:hover {
+            background-color: #e65c00;
+        }
+        h1 {
+            text-align: center;
+            color: #ff6f00;
+            margin-top: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            border: 1px solid #ffd699;
+            border-radius: 8px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ff6f00;
+        }
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ffcc99;
+            border-radius: 5px;
+        }
+        form input:focus {
+            border-color: #ff8c00;
+            outline: none;
+        }
+        form button {
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #e65c00;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #ff6f00;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <header>
-    <nav class='alignement_des_btns'>
-        <a href="profil.php" class="btn-home">Retour au Profil</a>
-    </nav>
+    <a href="profil.php" class="btn-home">Retour au Profil</a>
 </header>
 
 <h1>Modifier votre profil</h1>

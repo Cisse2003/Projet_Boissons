@@ -25,7 +25,7 @@ $user = $result->fetch_assoc();
 // Gestion du téléchargement de la photo de profil
 $success_message = $error_message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) {
-    $upload_dir = '../uploads/';
+    $upload_dir = __DIR__ . '/../uploads/';
     $file_name = uniqid() . '.' . strtolower(pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION));
     $target_file = $upload_dir . $file_name;
     $upload_ok = 1;
@@ -51,6 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
 
     // Enregistre le fichier si tout est bon
     if ($upload_ok === 1) {
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
         if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file)) {
             $update_query = "UPDATE utilisateurs SET profile_picture = ? WHERE username = ?";
             $stmt = $mysqli->prepare($update_query);
@@ -79,11 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #fffaf0;
             color: #333;
         }
         header {
-            background-color: #007BFF;
+            background-color: #ff6f00;
             color: white;
             padding: 15px 20px;
             text-align: center;
@@ -115,15 +119,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
+            color: #ff6f00;
         }
         .form-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffd699;
             border-radius: 5px;
         }
+        .form-group input:focus {
+            border-color: #ff8c00;
+            outline: none;
+        }
         .btn {
-            background-color: #007BFF;
+            background-color: #ff6f00;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -131,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
             cursor: pointer;
         }
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #e65c00;
         }
         .message {
             padding: 10px;
@@ -167,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
     <?php endif; ?>
 
     <div class="profile-picture">
-        <img src="../uploads/<?php echo htmlspecialchars($user['profile_picture'] ); ?>" alt="Photo de profil">
+        <img src="../uploads/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Photo de profil">
     </div>
 
     <p><strong>Nom complet :</strong> <?php echo htmlspecialchars($user['nom']); ?></p>

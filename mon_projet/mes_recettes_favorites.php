@@ -1,8 +1,6 @@
 <?php
-// Démarre une session pour accéder aux variables de session
 session_start();
 
-// Connexion à la base de données MySQL
 $mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') 
     or die("Erreur de connexion à MySQL");
 
@@ -14,7 +12,7 @@ if (!isset($_SESSION['favorites']) || empty($_SESSION['favorites']) || count($_S
     <head>
         <meta charset='UTF-8'>
         <title>Mes recettes préférées</title>
-        <link rel='stylesheet' type='text/css' href='styles/styles_favories.css'>
+        <link rel='stylesheet' type='text/css' href='styles/pas_de_recettes_favories.css'>
     </head>
     <body>
         <div class='empty-state'>
@@ -24,35 +22,34 @@ if (!isset($_SESSION['favorites']) || empty($_SESSION['favorites']) || count($_S
         </div>
     </body>
     </html>";
-    exit(); // Arrête l'exécution du script
+    exit(); 
 }
 
-// Récupère les IDs des recettes favorites depuis la session
+// Récupère les IDs des recettes favorites
 $favorite_ids = array_keys($_SESSION['favorites']); // Les clés du tableau $_SESSION['favorites'] contiennent les IDs des recettes
 
-// Construction de la requête SQL pour récupérer les détails des recettes favorites
-$ids_placeholders = implode(',', array_fill(0, count($favorite_ids), '?')); // Génère des "?" pour la requête préparée
+// Requête SQL pour récupérer les détails des recettes favorites
+$ids_placeholders = implode(',', array_fill(0, count($favorite_ids), '?'));
 $stmt = $mysqli->prepare("SELECT r.id, r.titre, r.preparation, p.chemin_photo 
                           FROM recettes r
                           LEFT JOIN photos p ON r.id = p.recette_id
                           WHERE r.id IN ($ids_placeholders)");
 
-// Associe les IDs des recettes favorites aux paramètres de la requête préparée
-$stmt->bind_param(str_repeat('i', count($favorite_ids)), ...$favorite_ids); // Chaque ID est un entier (type 'i')
-$stmt->execute(); // Exécute la requête
-$result = $stmt->get_result(); // Récupère les résultats de la requête
+$stmt->bind_param(str_repeat('i', count($favorite_ids)), ...$favorite_ids);
+$stmt->execute();
+$result = $stmt->get_result(); 
 
 // Fonction pour afficher les recettes favorites
 function afficher_recettes_favorites($result) {
-    echo "<div class='recettes-list'>"; // Conteneur pour la liste des recettes
+    echo "<div class='recettes-list'>";
 
     // Parcourt les résultats de la requête et affiche chaque recette
     while ($row = $result->fetch_assoc()) {
         $titre = htmlspecialchars($row['titre']); // Protège le titre contre les injections XSS
         $photo = !empty($row['chemin_photo']) && file_exists($row['chemin_photo']) 
-            ? $row['chemin_photo'] // Utilise la photo si elle existe
-            : "Photos/Image-Not-Found.jpg"; // Sinon, affiche une image par défaut
-        $preparation = htmlspecialchars($row['preparation']); // Protège la préparation contre les injections XSS
+            ? $row['chemin_photo'] 
+            : "Photos/photo_non_trouver.jpg"; 
+        $preparation = htmlspecialchars($row['preparation']); 
 
         // Affiche une carte pour chaque recette
         echo "<div class='recette-card'>
@@ -62,13 +59,14 @@ function afficher_recettes_favorites($result) {
                 <div class='recette-details'>
                     <h3>$titre</h3> <!-- Affiche le titre de la recette -->
                     <p>" . substr($preparation, 0, 100) . "...</p> <!-- Affiche un extrait de la préparation -->
-                    <a href='afficher_recettes.php?id=" . $row['id'] . "' class='btn-secondary'>Voir la recette</a> <!-- Lien vers la recette -->
+                    <a href='details_ingredients.php?id=" . $row['id'] . "' class='btn-secondary'>Ingrédients</a> <!-- Lien vers la recette -->
                 </div>
               </div>";
     }
 
-    echo "</div>"; // Fin du conteneur pour la liste des recettes
+    echo "</div>";
 }
+
 
 // Document HTML
 echo "<!DOCTYPE html>
@@ -76,7 +74,7 @@ echo "<!DOCTYPE html>
 <head>
     <meta charset='UTF-8'>
     <title>Mes recettes préférées</title>
-    <link rel='stylesheet' type='text/css' href='styles/styles_favories.css'> <!-- Lien vers la feuille de styles -->
+    <link rel='stylesheet' type='text/css' href='styles/styles_mes_favories.css'> <!-- Lien vers la feuille de styles -->
 </head>
 <body>
     <header class='main-header'>
@@ -84,14 +82,12 @@ echo "<!DOCTYPE html>
         <p>Découvrez et revisitez vos plats préférés !</p>
     </header>";
 
-// Appelle la fonction pour afficher les recettes favorites
 afficher_recettes_favorites($result);
 
 echo "</body>
 </html>";
 
-// Ferme la connexion à la base de données et libère les ressources
-$stmt->close(); // Ferme la requête préparée
-$mysqli->close(); // Ferme la connexion MySQL
+$stmt->close(); 
+$mysqli->close(); 
 ?>
 

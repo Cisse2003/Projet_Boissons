@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46b96058-0984-45ed-a99e-02db96a438ff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/mon_projet/Photos/photo_non_trouver.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/connexion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/connexion.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/inscription.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/inscription.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/authentification/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/chercher_des_suggestions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/details_ingredients.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/resultats_recherche.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/scripts/recherche.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/styles/affichage_recettes.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/styles/pas_de_recettes_favories.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mon_projet/styles/styles_mes_favories.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/afficher_recettes.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/afficher_recettes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/install.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/install.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/mes_recettes_favorites.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/mes_recettes_favorites.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/profil/modifier_profil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mon_projet/profil/profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/mon_projet/profil/profil.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,25 +53,28 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2pnGvMDEQlCs3cKq7Do9fgcDdlo" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;doumbouyaTest&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/SCAN/tp5&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "doumbouyaTest",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/SCAN/tp5",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\laragon\www\Projet_Boissons\mon_projet\profil" />
@@ -83,7 +105,7 @@
       <workItem from="1734703437167" duration="1630000" />
       <workItem from="1734707774534" duration="1630000" />
       <workItem from="1734762564684" duration="609000" />
-      <workItem from="1735133831301" duration="3595000" />
+      <workItem from="1735133831301" duration="4077000" />
     </task>
     <servers />
   </component>

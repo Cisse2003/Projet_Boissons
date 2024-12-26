@@ -1,8 +1,6 @@
 <?php
-// Démarre une session pour pouvoir utiliser les variables de session
 session_start();
 
-// Établit une connexion à la base de données MySQL
 $mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') 
     or die("Erreur de connexion à MySQL");
 
@@ -19,10 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['rec
     $recette_id = intval($_POST['recette_id']); // Assure que l'ID est un entier
 
     if ($_POST['action'] === 'add') {
-        // Ajoute la recette aux favoris
         $_SESSION['favorites'][$recette_id] = true;
     } elseif ($_POST['action'] === 'remove') {
-        // Supprime la recette des favoris
         unset($_SESSION['favorites'][$recette_id]);
     }
 
@@ -49,15 +45,17 @@ function afficher_chemin($mysqli, $aliment) {
             $aliment = $row['super_categorie']; // Passe à la super-catégorie
         } else {
             break;
-        }
+        }	
     }
 
     // Affiche le chemin sous forme de liens cliquables
-    echo "<div class='chemin'><strong>Aliment courant :</strong><br>" . implode(" / ", array_reverse($chemin)) . "</div>";
+    echo "<div class='chemin'><strong><h3>Aliment courant :</h3></strong><br>" . implode(" / ", array_reverse($chemin)) . "</div>";
 }
 
 // Fonction pour afficher les sous-catégories d'un aliment
 function afficher_sous_categories($mysqli, $aliment) {
+echo"<div class='chemin-sous-categories fixed-size'>";
+afficher_chemin($mysqli, $aliment);
     // Requête pour obtenir les sous-catégories de l'aliment
     $query = "SELECT a.nom AS sous_categorie
               FROM aliments a
@@ -71,6 +69,7 @@ function afficher_sous_categories($mysqli, $aliment) {
         echo "<li><a href='?aliment=" . urlencode($row['sous_categorie']) . "'>" . htmlspecialchars($row['sous_categorie']) . "</a></li>";
     }
     echo "</ul></div>";
+    echo"</div>";
 }
 
 // Fonction pour afficher les recettes associées à un aliment
@@ -87,9 +86,9 @@ function afficher_recettes($mysqli, $aliment) {
 
     echo "<div class='recettes'>";
     while ($row = $result->fetch_assoc()) {
-        $recette_id = $row['recette_id']; // ID de la recette
+        $recette_id = $row['recette_id']; 
         $est_favorite = isset($_SESSION['favorites'][$recette_id]); // Vérifie si la recette est dans les favoris
-        $coeur = $est_favorite ? "❤️" : "🤍"; // Affiche le cœur rempli ou vide
+        $coeur = $est_favorite ? "❤️" : "🤍"; 
 
         echo "<div class='recette'>";
         // Formulaire pour ajouter/supprimer une recette des favoris
@@ -97,7 +96,8 @@ function afficher_recettes($mysqli, $aliment) {
                 <input type='hidden' name='recette_id' value='$recette_id'>
                 <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add')."'>$coeur</button>
               </form>";
-        echo "<h2 class='titre-recette' data-ingredients='";
+              
+        /*echo "<h2 class='titre-recette' data-ingredients='";
 $ingredients_query = "
     SELECT i.quantite, i.unite, a.nom AS aliment
     FROM ingredients i
@@ -119,57 +119,53 @@ while ($ingredient = $ingredients_result->fetch_assoc()) {
 }
 echo htmlspecialchars(implode(', ', $ingredients_text)) . "'>";
 echo htmlspecialchars($row['titre']);
-echo "</h2>";
-
-        // Affiche la préparation de la recette
-        echo "<p><strong>Préparation :</strong> " . htmlspecialchars($row['preparation']) . "</p>";
+*/
+echo "<h2 class='titre-recette'>";
+       echo htmlspecialchars($row['titre']);
+ echo "</h2>";      
 
         // Affiche la photo de la recette ou une image par défaut si absente
         echo "<div class='photo'>";
         echo !empty($row['chemin_photo']) && file_exists($row['chemin_photo']) 
             ? "<img src='" . htmlspecialchars($row['chemin_photo']) . "' alt='Photo de " . htmlspecialchars($row['titre']) . "'>"
-            : "<img src='Photos/Image-Not-Found.jpg' alt='Photo non disponible'>";
+            : "<img src='Photos/photo_non_trouver.jpg' alt='Photo non disponible'>";
         echo "</div>";
-
+	// Affiche la préparation de la recette
+        echo "<p><strong>Préparation :</strong> " . htmlspecialchars($row['preparation']) . "</p>";
         echo "</div>";
     }
     echo "</div>";
 }
+?>
 
-//document HTML
-echo "<!DOCTYPE html>
-<html lang='fr'>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <meta charset='UTF-8'>
+    <meta charset="UTF-8">
     <title>Recettes</title>
-    <link rel='stylesheet' type='text/css' href='styles/recettes.css'>
+    <link rel="stylesheet" type="text/css" href="styles/affichage_recettes.css">
 </head>
 <body>
     <header> 
-        <nav class='alignement_des_btns'>
-        <!-- Lien Recettes -->
-        <a href='mes_recettes_favorites.php' target='_blank' class='btn-favorites'>Recettes ❤️</a>
-        
-        <!-- Formulaire de recherche -->
-        <form action='resultats_recherche.php' method='get' class='form-research'>
-            <input type='text' name='query' placeholder='Rechercher...' class='input-research'>
-            <button type='submit' class='btn-research'>Recherche</button>
-        </form>
-        
-        <!-- Bouton Connexion -->
-        <a href='utilisateurs/connexion.php' class='btn-connexion'>Connexion</a>
-    </nav>
+        <nav class="alignement_des_btns">
+            <a href="mes_recettes_favorites.php" target="_blank" class="btn-favorites">Recettes ❤️</a>
+             <form action="resultats_recherche.php" method="get" class="form-research" onsubmit="return false;" style="position: relative;">
+    <input type="text" id="search-input" name="query" placeholder="Rechercher..." class="input-research" onkeyup="fetchSuggestions(this.value)">
+    <div id="suggestions" class="suggestions-list"></div>
+    <button type="submit" class="btn-research" onclick="performSearch()">Recherche</button>
+</form>
+
+            <a href="utilisateurs/connexion.php" class="btn-connexion">Connexion</a>
+        </nav>
     </header>
-    <h1>Recettes pour : " . htmlspecialchars($aliment) . "</h1>";
-
-// Affiche le chemin, les sous-catégories et les recettes
-afficher_chemin($mysqli, $aliment);
-afficher_sous_categories($mysqli, $aliment);
-afficher_recettes($mysqli, $aliment);
-
-// Ferme la connexion MySQLi
-$mysqli->close();
-echo "</body>
-</html>";
-?>
+ 
+    <div class="conteneur">
+        <?php
+        afficher_sous_categories($mysqli, $aliment);
+        afficher_recettes($mysqli, $aliment);
+        ?>
+    </div>
+    <script src="scripts/recherche.js"></script>
+</body>
+</html>
 
