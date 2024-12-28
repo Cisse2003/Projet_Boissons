@@ -148,7 +148,7 @@ foreach ($Recettes as $recette) {
     $ingredients = explode('|', $recette['ingredients']); // Liste des quantités, unités et descriptions
     $index = $recette['index']; 
     if (count($ingredients) !== count($index)) {
-        echo "Mismatch entre ingrédients et index pour la recette : {$recette['titre']}<br>";
+        echo "Erreur entre ingrédients et index pour la recette : {$recette['titre']}<br>";
     } else {
         foreach ($index as $i => $nom_aliment) { // Parcourir les aliments par index
             $ingredient = trim($ingredients[$i]);
@@ -157,11 +157,6 @@ foreach ($Recettes as $recette) {
             $parts = explode(' ', $ingredient, 3); // Diviser en 3 parties : quantité, unité, reste
             $quantite = isset($parts[0]) ? $parts[0] : null;
             $unite = isset($parts[1]) ? $parts[1] : null;
-    
-            echo "quantite : " . ($quantite ?: 'NULL') . "<br>";
-            echo "unite : " . ($unite ?: 'NULL') . "<br>";
-            echo "nom aliment : " . htmlspecialchars($nom_aliment) . "<br>";
-    
             // Trouver l'aliment dans la hiérarchie
             $found = false;
             foreach ($aliment_ids as $nom_hierarchie => $id) {
@@ -199,8 +194,6 @@ foreach ($Recettes as $recette) {
 echo "Base de données, tables et données initialisées avec succès.";
 $result = $mysqli->query("SELECT DATABASE()");
 $row = $result->fetch_row();
-echo "Base de données actuelle : " . $row[0];
-
 
 $mysqli->close();
 ?>
