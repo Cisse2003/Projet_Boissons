@@ -180,9 +180,11 @@ foreach ($Recettes as $recette) {
     }
 
     // Insertion de la photo associée (si disponible)
-    $photo_chemin = "Photos/" . str_replace(' ', '_', $titre) . ".jpg";
+    $photo_chemin = "../Photos/" . str_replace(' ', '_', $titre) . ".jpg";
     if (!file_exists($photo_chemin)) {
         $photo_chemin = "Photos/photo_non_trouver.jpg";
+    }else{
+    	$photo_chemin = "Photos/" . str_replace(' ', '_', $titre) . ".jpg";
     }
     $stmt = $mysqli->prepare("INSERT INTO photos (recette_id, chemin_photo) VALUES (?, ?)");
     $stmt->bind_param("is", $recette_id, $photo_chemin);
