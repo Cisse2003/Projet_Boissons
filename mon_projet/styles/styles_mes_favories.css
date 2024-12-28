@@ -1,0 +1,139 @@
+/* Styles généraux pour la page favorite */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F7F7F7;
+    margin: 0;
+    padding: 0;
+}
+
+header.main-header {
+    background-color: #FF6F61; 
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.recettes-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.recette-card {
+    background-color: #F7F7F7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 280px;  
+    text-align: center;
+    overflow: hidden;
+    border: 1px solid;
+    border-color: #D4AF37;
+}
+
+.recette-image-container {
+    height: 250px; 
+    overflow: hidden;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.recette-img {
+    width: auto; 
+    height: auto; 
+    max-width: 100%; 
+    max-height: 250px; 
+    object-fit: contain; 
+    transition: transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.recette-img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.recette-details {
+    padding: 15px;
+}
+
+.recette-details h3 {
+    font-size: 1.4rem; 
+    color: #FF6F61;
+    margin-bottom: 10px;
+}
+
+h3:hover {
+    color: #FF4F3A; 
+}
+
+.recette-details p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.btn-secondary {
+    background-color: #FF6F61;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: #FF4F42;
+}
+
+.empty-state .btn-primary {
+     background-color: red;
+}
+/* Media queries pour rendre la page responsive */
+@media (max-width: 768px) {
+    header.main-header {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    .recettes-list {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .recette-card {
+        width: 90%; 
+        max-width: none; 
+    }
+
+    .recette-img {
+        height: 200px; 
+    }
+
+    .btn-secondary {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recette-details h3 {
+        font-size: 1.2rem; 
+    }
+
+    .recette-details p {
+        font-size: 0.9rem; 
+    }
+
+    .btn-secondary {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+

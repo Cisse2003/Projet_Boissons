@@ -1,0 +1,75 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #F7F7F7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container.middle {
+            max-width: 70%;
+            margin: 30px auto;
+            background: #F7F7F7;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #D4AF37;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .photo-section {
+            text-align: center;
+        }
+        .photo-section img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center; /* Center align all form elements */
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="file"],
+        button, .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button, .btn {
+            background-color: #FF6F61;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover, .btn:hover {
+            background-color: #FF4F3A;
+        }
+        .btn-back {
+            background-color: #FF6F61; /* Same color as other buttons */
+            color: white;
+            margin-bottom: 20px;
+        }
+        .btn-back:hover {
+            background-color: #FF4F3A; /* Same hover color as other buttons */
+        }
+
+        /* Centrer le bouton Modifier le profil de la même manière que Mettre à jour */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn {
+            width: auto; /* Ajuster la largeur du bouton Modifier */
+            max-width: 200px; /* Limiter la largeur du bouton Modifier */
+            text-decoration: none;
+        }
