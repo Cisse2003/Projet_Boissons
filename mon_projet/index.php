@@ -122,7 +122,6 @@ afficher_chemin($mysqli, $aliment);
 
 // Fonction pour afficher les recettes associées à un aliment
 function afficher_recettes($mysqli, $aliment) {
-    
     // Requête pour obtenir les recettes contenant l'aliment
     $query = "
         SELECT r.id AS recette_id, r.titre, r.preparation, p.chemin_photo
@@ -133,35 +132,34 @@ function afficher_recettes($mysqli, $aliment) {
     ";
     $result = $mysqli->query($query);
 
-     // Si aucune recette n'est trouvée, afficher une animation de bienvenue
+    // Si aucune recette n'est trouvée, afficher une animation de bienvenue
     if ($result->num_rows == 0 && $aliment == "Aliment") {
-      echo "<div class='welcome-container'>";
-echo "<h2>Bienvenue sur notre site de recettes!</h2>";
-echo "<p>Explorez nos différentes catégories pour découvrir des recettes délicieuses!</p>";
-echo "<div id='stars-container' class='stars-container'>";
-for ($i = 0; $i < 20; $i++) {
-    echo "<span class='heart'>⭐</span>";
-}
-echo "</div>";
-echo "</div>";
-
+        echo "<div class='welcome-container'>";
+        echo "<h2>Bienvenue sur notre site de recettes!</h2>";
+        echo "<p>Explorez nos différentes catégories pour découvrir des recettes délicieuses!</p>";
+        echo "<div id='stars-container' class='stars-container'>";
+        for ($i = 0; $i < 20; $i++) {
+            echo "<span class='heart'>⭐</span>";
+        }
+        echo "</div>";
+        echo "</div>";
     } else {
         echo "<div class='recettes'>";
         while ($row = $result->fetch_assoc()) {
-            $recette_id = $row['recette_id']; 
+            $recette_id = $row['recette_id'];
             $est_favorite = isset($_SESSION['favorites'][$recette_id]); // Vérifie si la recette est dans les favoris
-            $coeur = $est_favorite ? "❤️" : "🤍"; 
+            $coeur = $est_favorite ? "❤️" : "🤍";
 
             echo "<div class='recette'>";
             // Formulaire pour ajouter/supprimer une recette des favoris
             echo "<form method='POST'>
                     <input type='hidden' name='recette_id' value='$recette_id'>
-                    <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add')."'>$coeur</button>
+                    <button type='submit' name='action' value='" . ($est_favorite ? 'remove' : 'add') . "'>$coeur</button>
                   </form>";
 
             echo "<h2 class='titre-recette'>";
             echo htmlspecialchars($row['titre']);
-            echo "</h2>";      
+            echo "</h2>";
 
             // Affiche la photo de la recette ou une image par défaut si absente
             echo "<div class='photo'>";
@@ -170,13 +168,14 @@ echo "</div>";
                 : "<img src='Photos/photo_non_trouver.jpg' alt='Photo non disponible'>";
             echo "</div>";
 
-            // Affiche la préparation de la recette
-            echo "<p><strong>Préparation :</strong> " . htmlspecialchars($row['preparation']) . "</p>";
+            // Affiche la préparation de la recette avec les entités décodées
+            echo "<p><strong>Préparation :</strong> " . htmlspecialchars_decode($row['preparation']) . "</p>";
             echo "</div>";
         }
         echo "</div>";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -184,18 +183,20 @@ echo "</div>";
 <head>
     <meta charset="UTF-8">
     <title>Recettes</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles_afficher_recettes.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles_affiche_recettes.css">
 </head>
 <body>
 
     <header> 
         <nav class="alignement_des_btns">
             <a href="mes_recettes_favorites.php" target="_blank" class="btn-favorites">Recettes ❤️</a>
+       <div class="recherche-container">     
             <form action="resultats_recherche.php" method="get" class="form-research" onsubmit="return false;" style="position: relative;">
-                <input type="text" id="search-input" name="query" placeholder="Rechercher..." class="input-research" onkeyup="fetchSuggestions(this.value)">
+                <input type="text" id="search-input" name="query" placeholder="Rechercher une recette..." class="input-research" onkeyup="fetchSuggestions(this.value)">
                 <div id="suggestions" class="suggestions-list"></div>
                 <button type="submit" class="btn-research" onclick="performSearch()">Recherche</button>
             </form>
+            </div>
 
             <?php if (isset($_SESSION['username'])): ?>
     <!-- Si l'utilisateur est connecté, afficher la photo de profil -->

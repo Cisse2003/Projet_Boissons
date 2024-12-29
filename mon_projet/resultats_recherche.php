@@ -67,12 +67,19 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Résultats de la recherche</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles_afficher_recettes.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles_affiche_recettes.css">
 </head>
 <body>
     <header>
         <nav class="alignement_des_btns">
             <a href="mes_recettes_favorites.php" class="btn-favorites">Recettes ❤️</a>
+            <div class="recherche-container">
+        <form method="GET" action="resultats_recherche.php">
+            <input type="text" name="query" placeholder="Rechercher une recette..." required>
+            <button type="submit" class="search-button">Recherche</button>
+        </form>
+    </div>
+
             <?php if (isset($_SESSION['username'])): ?>
                 <!-- Si l'utilisateur est connecté, afficher la photo de profil -->
                 <a href="javascript:void(0);" class="photo-profil" id="photo-profil" onclick="toggleProfilMenu()">
@@ -90,14 +97,7 @@ if (isset($_SESSION['user_id'])) {
             <?php endif; ?>
         </nav>
     </header>
-    
-    <div class="recherche-container">
-        <form method="GET" action="resultats_recherche.php">
-            <input type="text" name="query" placeholder="Rechercher une recette..." required>
-            <button type="submit" class="search-button">Recherche</button>
-        </form>
-    </div>
-
+   
     <div class="conteneur">
         <?php if (empty($recettes)): ?>
             <div class="pop-up-message">

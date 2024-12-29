@@ -168,12 +168,24 @@ h1, h2, h3 {
 }
 
 /* Header et navigation */
+/* Header et navigation */
 header {
+    display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
+    background-color: #F7F7F7;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    border-radius: 5px solid;
+    border-color:#D4AF37; 
+    padding-right: 20px;
+    padding-left: 20px;
     margin-bottom: 20px;
 }
 
+/* Autres éléments du header */
 .input-research {
     padding: 8px;
     border: 1px solid #ccc;
@@ -191,6 +203,7 @@ header {
     gap: 15px;
     width: 100%;
 }
+
 
 /* Formulaire de recherche */
 .form-research {
