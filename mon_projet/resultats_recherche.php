@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') or die("Erreur de connexion à MySQL");
+$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') 
+    or die("Erreur de connexion à MySQL");
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Vérifie si l'utilisateur est connecté
 
@@ -66,7 +67,7 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Résultats de la recherche</title>
-    <link rel="stylesheet" type="text/css" href="styles/afficher_recettes.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles_afficher_recettes.css">
 </head>
 <body>
     <header>
@@ -155,4 +156,5 @@ if (isset($_SESSION['user_id'])) {
     </script>
 </body>
 </html>
+
 

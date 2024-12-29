@@ -13,6 +13,7 @@ if (!isset($_SESSION['username'])) {
 // Connexion à la base de données MySQL
 $mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') or die("Erreur de connexion à MySQL");
 
+
 // Récupère les informations de l'utilisateur depuis la base de données
 $username = $_SESSION['username'];
 $stmt = $mysqli->prepare("SELECT * FROM utilisateurs WHERE username = ?");
@@ -23,50 +24,55 @@ $user = $result->fetch_assoc();
 
 // Gestion du téléchargement de la photo de profil
 $success_message = $error_message = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) {
-    $upload_dir = __DIR__ . '/../Photos/uploads/';
-    $file_name = uniqid() . '.' . strtolower(pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION));
-    $target_file = $upload_dir . $file_name;
-    $upload_ok = 1;
-    $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+        $upload_dir = __DIR__ . '/../Photos/uploads/';
+        $file_name = uniqid() . '.' . strtolower(pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION));
+        $target_file = $upload_dir . $file_name;
+        $upload_ok = 1;
+        $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Vérifie si le fichier est une image
-    if (!getimagesize($_FILES['profile_picture']['tmp_name'])) {
-        $upload_ok = 0;
-        $error_message = "Le fichier n'est pas une image valide.";
-    }
-
-    // Vérifie la taille du fichier
-    if ($_FILES['profile_picture']['size'] > 5000000) {
-        $upload_ok = 0;
-        $error_message = "Le fichier est trop volumineux.";
-    }
-
-    // Autorise uniquement certains formats
-    if (!in_array($image_file_type, ['jpg', 'jpeg', 'png', 'gif'])) {
-        $upload_ok = 0;
-        $error_message = "Seuls les formats JPG, JPEG, PNG et GIF sont autorisés.";
-    }
-
-    // Enregistre le fichier si tout est bon
-    if ($upload_ok === 1) {
-        if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0755, true);
+        // Vérifie si le fichier est une image
+        if (!getimagesize($_FILES['profile_picture']['tmp_name'])) {
+            $upload_ok = 0;
+            $error_message = "Le fichier n'est pas une image valide.";
         }
 
-        if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file)) {
-            $update_query = "UPDATE utilisateurs SET photo_path = ? WHERE username = ?";
-            $stmt = $mysqli->prepare($update_query);
-            $stmt->bind_param("ss", $file_name, $username);
-            if ($stmt->execute()) {
-                $success_message = "La photo de profil a été mise à jour avec succès.";
-                $user['profile_picture'] = $file_name;
-            } else {
-                $error_message = "Erreur lors de la mise à jour de la base de données.";
+        // Vérifie la taille du fichier
+        if ($_FILES['profile_picture']['size'] > 5000000) {
+            $upload_ok = 0;
+            $error_message = "Le fichier est trop volumineux.";
+        }
+
+        // Autorise uniquement certains formats
+        if (!in_array($image_file_type, ['jpg', 'jpeg', 'png', 'gif'])) {
+            $upload_ok = 0;
+            $error_message = "Seuls les formats JPG, JPEG, PNG et GIF sont autorisés.";
+        }
+
+        // Enregistre le fichier si tout est bon
+        if ($upload_ok === 1) {
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
             }
-        } else {
-            $error_message = "Erreur lors du téléchargement du fichier.";
+
+            if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file)) {
+                $update_query = "UPDATE utilisateurs SET photo_path = ? WHERE username = ?";
+                $stmt = $mysqli->prepare($update_query);
+                $stmt->bind_param("ss", $file_name, $username);
+                if ($stmt->execute()) {
+                    $success_message = "La photo de profil a été mise à jour avec succès.";
+                    $user['profile_picture'] = $file_name;
+                } else {
+                    $error_message = "Erreur lors de la mise à jour de la base de données.";
+                }
+            } else {
+                $error_message = "Erreur lors du téléchargement du fichier.";
+            }
         }
+    } else {
+        // Aucun fichier téléchargé, affichage d'un message d'information si nécessaire
+        $error_message = "Aucun fichier n'a été sélectionné. Veuillez choisir une photo à télécharger.";
     }
 }
 ?>
@@ -92,8 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
         <?php endif; ?>
         
         <?php
-	    $photoPath = (!empty($user['photo_path']) && $user['photo_path'] !== 'Photos/default-photo.png') ? $user['photo_path'] : 'default-photo.png';
-	?>
+        $photoPath = (!empty($user['photo_path']) && $user['photo_path'] !== 'Photos/default-photo.png') ? $user['photo_path'] : 'default-photo.png';
+        ?>
 
         <div class="photo-section">
             <label for="profile_picture">

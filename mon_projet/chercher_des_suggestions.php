@@ -1,6 +1,6 @@
 <?php
-$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') or die("Erreur de connexion à MySQL");
-
+$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') 
+    or die("Erreur de connexion à MySQL");
 $query = isset($_GET['query']) ? trim($_GET['query']) : '';
 
 if ($query) {
@@ -25,4 +25,5 @@ if ($query) {
 }
 $mysqli->close();
 ?>
+
 

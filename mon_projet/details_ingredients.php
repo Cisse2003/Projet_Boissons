@@ -3,7 +3,7 @@ session_start();
 
 $mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') 
     or die("Erreur de connexion à MySQL");
-
+    
 // Vérifie si un ID de recette est passé dans l'URL
 if (isset($_GET['id'])) {
     $recette_id = intval($_GET['id']);
@@ -84,4 +84,5 @@ if (isset($_GET['id'])) {
     echo "ID de recette non spécifié.";
 }
 ?>
+
 

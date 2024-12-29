@@ -18,7 +18,7 @@ if (!isset($_SESSION['favorites']) || empty($_SESSION['favorites']) || count($_S
         <div class='empty-state'>
             <h1>Mes recettes préférées</h1>
             <p>Vous n'avez pas encore de recettes préférées. Ajoutez-en pour les retrouver ici !</p>
-            <a href='afficher_recettes.php' class='btn-primary'>Découvrir des recettes</a>
+            <a href='index.php' class='btn-primary'>Découvrir des recettes</a>
         </div>
     </body>
     </html>";
@@ -88,4 +88,5 @@ echo "</body>
 $stmt->close(); 
 $mysqli->close(); 
 ?>
+
 

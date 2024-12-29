@@ -5,6 +5,7 @@ session_start();
 session_destroy();
 
 // Rediriger vers la page de connexion ou d'accueil
-header("Location: ../afficher_recettes.php");
+header("Location: ../index.php");
 exit();
 ?>
+

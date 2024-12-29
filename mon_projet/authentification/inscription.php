@@ -95,8 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         	    $_SESSION['username'] = $username;
 
         	   // Rediriger vers la page des recettes après l'inscription réussie
-        	  define('BASE_URL', '/projet/Projet/mon_projet/');
-		  header("Location: " . BASE_URL . "afficher_recettes.php");
+		        header("Location: connexion.php");
         
    	          exit();
                 } else {
@@ -182,7 +181,7 @@ $mysqli->close();
                     <span class="errone cache" id="nouveauMotDePasseErreur"></span>
                     <div class="blocMDP">
                         <input type="password" name="password" id='mdp' class='mdp' value="<?php if (isset($password)) echo $password; ?>" required>
-                        <span class="material-icons visibilite" onclick="toggleVisiblite('mdp', this)">visibility</span>
+                        <span class="material-icons visibilite" onclick="toggleVisibilite('mdp', this)">visibility</span>
                     </div>
 
                     <span class='condMotDePasse'>Le mot de passe doit avoir au moins 8 caractères, dont au moins 1 lettre majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.</span>
@@ -226,5 +225,18 @@ $mysqli->close();
 
     <p>Déjà inscrit ? <a href="connexion.php">Connectez-vous ici</a></p>
 </div>
+<script>
+        function toggleVisibilite(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "visibility_off";
+            } else {
+                input.type = "password";
+                icon.textContent = "visibility";
+            }
+        }
+</script>
 </body>
 </html>
+

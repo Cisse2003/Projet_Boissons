@@ -7,11 +7,8 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-// Connexion à la base de données
-$mysqli = new mysqli('127.0.0.1', 'root', '', 'ProjetRecettes');
-if ($mysqli->connect_error) {
-    die("Erreur de connexion : " . $mysqli->connect_error);
-}
+// Connexion à la base de données MySQL
+$mysqli = mysqli_connect('127.0.0.1', 'root', '', 'ProjetRecettes') or die("Erreur de connexion à MySQL");
 
 $username = $_SESSION['username'];
 
@@ -131,4 +128,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="scripts/modifier_profil.js"></script>
 </body>
 </html>
+
 

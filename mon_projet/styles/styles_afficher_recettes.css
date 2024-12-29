@@ -467,3 +467,71 @@ h1:hover, h2:hover, h3:hover {
         width: 100%;
     }
 }  
+
+/* Conteneur de l'animation de bienvenue */
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #F7F7F7; 
+    border: 1px solid #D4AF37;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+/* Titre de bienvenue */
+.welcome-container h2 {
+    font-size: 2rem;
+    color: #FF6F61; /* Couleur du texte */
+}
+
+/* Paragraphe de bienvenue */
+.welcome-container p {
+    font-size: 1.2rem;
+    color: #555555;
+}
+/* Conteneur des cœurs */
+.stars-container {
+    position: relative;
+    width: 100%; /* Largeur fixe */
+    height: 300px; /* Hauteur fixe */
+    overflow: hidden; /* Évite que les étoiles débordent visuellement */
+    background: #F7F7F7; /* Couleur d'arrière-plan optionnelle */
+    border-radius: 8px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Cœurs */
+.heart {
+   position: absolute; /* Positionnement indépendant */
+    font-size: 24px;
+    color: gold; /* Couleur dorée pour l'effet étoilé */
+    transition: transform 0.2s ease-in-out;
+    pointer-events: none;
+}
+.heart:hover {
+    transform: scale(1.3);
+}
+
+/* Animation pour le mouvement des cœurs */
+@keyframes sparkle {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.2) translateY(-5px);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 0.8;
+    }
+}
+
